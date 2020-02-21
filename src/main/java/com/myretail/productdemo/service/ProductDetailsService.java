@@ -2,7 +2,9 @@ package com.myretail.productdemo.service;
 
 import com.myretail.productdemo.adapter.ProductPriceDAO;
 import com.myretail.productdemo.adapter.ProductDetailsAdapter;
+import com.myretail.productdemo.mapper.PriceUpdateRequestMapper;
 import com.myretail.productdemo.mapper.ResponseMapper;
+import com.myretail.productdemo.model.CurrentPrice;
 import com.myretail.productdemo.model.ProductEntity;
 import com.myretail.productdemo.model.Response;
 import io.reactivex.Observable;
@@ -30,6 +32,16 @@ public class ProductDetailsService {
 
     public Observable<ProductEntity> createProductEntity(ProductEntity productEntity){
         return Observable.fromCallable(()->productPriceDAO.saveProductPrice(productEntity)).subscribeOn(Schedulers.newThread());
+    }
+
+    public Observable<ProductEntity> updateProductPrice(CurrentPrice currentPrice, int id, String clientId){
+        return Observable.fromCallable(()->productPriceDAO.updateProductPrice(PriceUpdateRequestMapper.map(currentPrice, id, clientId)))
+                .subscribeOn(Schedulers.newThread());
+    }
+
+    public Observable<Void> deleteProductPrice(int id){
+        productPriceDAO.deleteProductPrice(id);
+        return Observable.empty();
     }
 
 }

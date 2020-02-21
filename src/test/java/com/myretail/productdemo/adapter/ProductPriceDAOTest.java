@@ -1,9 +1,11 @@
 package com.myretail.productdemo.adapter;
 
 import com.myretail.productdemo.configuration.TestSpringConfiguration;
+import com.myretail.productdemo.exceptions.ResourceNotFoundException;
 import com.myretail.productdemo.model.ProductEntity;
 import com.myretail.productdemo.repo.ProductRepository;
 import com.myretail.productdemo.util.Helper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -49,6 +51,32 @@ public class ProductPriceDAOTest {
         ProductEntity response = productPriceDAO.saveProductPrice(actual);
         Assert.notNull(response, "Response is not null");
         Helper.assertObjectsEqual(response, actual);
+    }
+
+    @Test
+    public void testUpdateProductPrice() throws ResourceNotFoundException {
+        ProductEntity actual = Helper.getObjectFromFile("mock/adapter/productEntity.json", ProductEntity.class);
+        assert actual != null;
+        Mockito.doReturn(true).when(productRepository).existsById(Mockito.any());
+        Mockito.doReturn(actual).when(productRepository).save(Mockito.any());
+        ProductEntity response = productPriceDAO.updateProductPrice(actual);
+        Assert.notNull(response, "Response is not null");
+        Helper.assertObjectsEqual(response, actual);
+    }
+
+    @Test
+    public void testUpdateProductPrice_404() throws ResourceNotFoundException {
+        ProductEntity actual = Helper.getObjectFromFile("mock/adapter/productEntity.json", ProductEntity.class);
+        assert actual != null;
+        Mockito.doReturn(false).when(productRepository).existsById(Mockito.any());
+        Assertions.assertThrows(ResourceNotFoundException.class, ()->productPriceDAO.updateProductPrice(actual));
+    }
+
+    @Test
+    public void testDeleteProductPrice() {
+        int id = 13860427;
+        Mockito.doNothing().when(productRepository).deleteById(Mockito.any());
+        productPriceDAO.deleteProductPrice(id);
     }
 
 }

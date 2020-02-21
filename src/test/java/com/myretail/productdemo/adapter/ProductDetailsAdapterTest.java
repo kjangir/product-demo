@@ -2,7 +2,7 @@ package com.myretail.productdemo.adapter;
 
 import com.myretail.productdemo.configuration.TestSpringConfiguration;
 import com.myretail.productdemo.exceptions.ExternalServiceExceptionHandler;
-import com.myretail.productdemo.exceptions.ExternalServiceNonCircuitException;
+import com.myretail.productdemo.exceptions.ResourceNotFoundException;
 import com.myretail.productdemo.exceptions.ExternalServiceRuntimeException;
 import com.myretail.productdemo.model.ProductDetailResponse;
 import com.myretail.productdemo.util.Helper;
@@ -90,7 +90,7 @@ public class ProductDetailsAdapterTest {
         this.mockServer.expect(requestTo(clientEndpointUri)).andExpect(method(HttpMethod.GET))
                 .andRespond(withBadRequest());
 
-        Assertions.assertThrows(ExternalServiceNonCircuitException.class, () -> { productDetailsAdapter.getProductDetails(id); });
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> { productDetailsAdapter.getProductDetails(id); });
 
     }
 
