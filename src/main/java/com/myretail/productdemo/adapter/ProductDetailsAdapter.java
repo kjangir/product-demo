@@ -16,16 +16,15 @@ public class ProductDetailsAdapter {
 
     @Autowired
     @Qualifier("getProductNameRestTemplate")
-    private RestTemplate restTemplate;
+    private RestTemplate getProductNameRestTemplate;
 
     @Value("${product.details.url}")
     private String url;
 
-    public String getProductDetails(Integer id) {
+
+    public ProductDetailResponse getProductDetails(Integer id) {
         Map<String, Integer> pathVariables = new HashMap<>();
         pathVariables.put("productId", id);
-        ProductDetailResponse response = restTemplate.exchange(url, HttpMethod.GET, null, ProductDetailResponse.class, pathVariables).getBody();
-        return response.getProduct().getItem().getProductDescription().getTitle();
-//        return response.toString();
+        return getProductNameRestTemplate.exchange(url, HttpMethod.GET, null, ProductDetailResponse.class, pathVariables).getBody();
     }
 }
