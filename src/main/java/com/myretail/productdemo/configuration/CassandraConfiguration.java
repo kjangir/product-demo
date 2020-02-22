@@ -10,13 +10,16 @@ import org.springframework.data.cassandra.core.convert.MappingCassandraConverter
 import org.springframework.data.cassandra.core.mapping.CassandraMappingContext;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
+import java.io.File;
+
 @Configuration
 @EnableCassandraRepositories(basePackages = "com.myretail.productdemo.repo")
 public class CassandraConfiguration extends AbstractCassandraConfiguration {
 
     @Bean
     public CassandraClusterFactoryBean clusterFactoryBean(){
-        System.setProperty("javax.net.ssl.trustStore", "/opt/tomcat/cassandra_truststore.jks");
+        File filePath = new File( "cassandra_truststore.jks");
+        System.setProperty("javax.net.ssl.trustStore", filePath.getAbsolutePath());
         System.setProperty("javax.net.ssl.trustStorePassword", "amazon");
         final CassandraClusterFactoryBean cluster = new CassandraClusterFactoryBean();
         cluster.setContactPoints("cassandra.us-east-2.amazonaws.com");
