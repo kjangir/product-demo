@@ -11,6 +11,8 @@ import org.springframework.data.cassandra.core.mapping.BasicMapId;
 import org.springframework.data.cassandra.core.mapping.MapId;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class ProductPriceDAO {
 
@@ -40,7 +42,10 @@ public class ProductPriceDAO {
 
     public ProductEntity updateProductPrice(ProductEntity entity) throws ResourceNotFoundException {
         logger.info("Executing Query to Update Product Price : {}", entity);
-        if(productRepository.existsById(BasicMapId.id("id",entity.getId()))){
+        Optional<ProductEntity> productEntity = productRepository.findById(BasicMapId.id("id",entity.getId()));
+        if(productEntity.isPresent()) {
+            entity.setCreatedBy(productEntity.get().getCreatedBy());
+            entity.setCreatedTime(productEntity.get().getCreatedTime());
             return productRepository.save(entity);
         }
         throw new ResourceNotFoundException("Entity not found for ID : " + entity.getId());

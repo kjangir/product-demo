@@ -86,8 +86,7 @@ public class ProductController {
     public DeferredResult<ResponseEntity> deleteProduct(@PathVariable @ApiParam(value = "Product Id", example = "13860427") Integer id) {
         DeferredResult<ResponseEntity> deferred = new DeferredResult<>();
         productDetailsService.deleteProductPrice(id)
-                .subscribe(response -> deferred.setResult(new ResponseEntity(HttpStatus.NO_CONTENT)),
-                        deferred::setErrorResult);
+                .subscribe(deferred::setResult, deferred::setErrorResult);
         return deferred;
     }
 }

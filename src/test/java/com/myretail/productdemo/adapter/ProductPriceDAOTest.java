@@ -57,7 +57,7 @@ public class ProductPriceDAOTest {
     public void testUpdateProductPrice() throws ResourceNotFoundException {
         ProductEntity actual = Helper.getObjectFromFile("mock/adapter/productEntity.json", ProductEntity.class);
         assert actual != null;
-        Mockito.doReturn(true).when(productRepository).existsById(Mockito.any());
+        Mockito.doReturn(Optional.of(actual)).when(productRepository).findById(Mockito.any());
         Mockito.doReturn(actual).when(productRepository).save(Mockito.any());
         ProductEntity response = productPriceDAO.updateProductPrice(actual);
         Assert.notNull(response, "Response is not null");
@@ -68,7 +68,7 @@ public class ProductPriceDAOTest {
     public void testUpdateProductPrice_404() throws ResourceNotFoundException {
         ProductEntity actual = Helper.getObjectFromFile("mock/adapter/productEntity.json", ProductEntity.class);
         assert actual != null;
-        Mockito.doReturn(false).when(productRepository).existsById(Mockito.any());
+        Mockito.doReturn(Optional.empty()).when(productRepository).findById(Mockito.any());
         Assertions.assertThrows(ResourceNotFoundException.class, ()->productPriceDAO.updateProductPrice(actual));
     }
 

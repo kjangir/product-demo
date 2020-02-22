@@ -10,6 +10,8 @@ import com.myretail.productdemo.model.Response;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,9 +41,9 @@ public class ProductDetailsService {
                 .subscribeOn(Schedulers.newThread());
     }
 
-    public Observable<Void> deleteProductPrice(int id){
+    public Observable<ResponseEntity> deleteProductPrice(int id){
         productPriceDAO.deleteProductPrice(id);
-        return Observable.empty();
+        return Observable.just(new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
 }

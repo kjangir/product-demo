@@ -20,7 +20,6 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-cassandra'
 	compile 'io.reactivex.rxjava2:rxjava:2.2.0'
 	compileOnly 'org.projectlombok:lombok'

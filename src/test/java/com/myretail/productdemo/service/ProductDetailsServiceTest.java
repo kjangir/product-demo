@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 @SpringJUnitConfig(TestSpringConfiguration.class)
@@ -96,7 +97,7 @@ class ProductDetailsServiceTest {
         int id = 13860427;
         Mockito.doNothing().when(productPriceDAO).deleteProductPrice(id);
 
-        TestObserver<Void> testObserver = productDetailsService.deleteProductPrice(id).test();
+        TestObserver<ResponseEntity> testObserver = productDetailsService.deleteProductPrice(id).test();
         testObserver.awaitTerminalEvent();
         testObserver.assertNoErrors();
     }
