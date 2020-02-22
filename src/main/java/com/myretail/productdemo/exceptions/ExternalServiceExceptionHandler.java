@@ -1,6 +1,5 @@
 package com.myretail.productdemo.exceptions;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
@@ -40,7 +39,7 @@ public class ExternalServiceExceptionHandler implements ResponseErrorHandler {
             messageBody = inputStringBuilder.toString();
         }
         if (statusCode.is4xxClientError() ) {
-                throw new ExternalServiceNonCircuitException(messageBody);
+                throw new ResourceNotFoundException(messageBody);
         } else {
 
             throw new ExternalServiceRuntimeException(messageBody);

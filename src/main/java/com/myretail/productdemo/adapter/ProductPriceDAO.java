@@ -1,5 +1,6 @@
 package com.myretail.productdemo.adapter;
 
+import com.myretail.productdemo.exceptions.ResourceNotFoundException;
 import com.myretail.productdemo.model.ProductEntity;
 import com.myretail.productdemo.repo.ProductRepository;
 import org.slf4j.Logger;
@@ -30,5 +31,18 @@ public class ProductPriceDAO {
     public ProductEntity saveProductPrice(ProductEntity entity) {
         logger.info("Executing Query to Save Product Entity : {}", entity);
         return productRepository.save(entity);
+    }
+
+    public void deleteProductPrice(int id) {
+        logger.info("Executing Query to Delete Product Entity : {}", id);
+        productRepository.deleteById(BasicMapId.id("id", id));
+    }
+
+    public ProductEntity updateProductPrice(ProductEntity entity) throws ResourceNotFoundException {
+        logger.info("Executing Query to Update Product Price : {}", entity);
+        if(productRepository.existsById(BasicMapId.id("id",entity.getId()))){
+            return productRepository.save(entity);
+        }
+        throw new ResourceNotFoundException("Entity not found for ID : " + entity.getId());
     }
 }

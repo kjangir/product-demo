@@ -20,8 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -30,9 +28,9 @@ import java.util.stream.Collectors;
  * Base abstract class for handling and processing all of the service exceptions.Each Service must inherit this class and override handleExceptionInternal if it needs specific exception processing mechanism.
  */
 @ControllerAdvice
-public class CasCoreServiceExceptionHandler {
+public class ServiceExceptionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CasCoreServiceExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceExceptionHandler.class);
 
     @InitBinder
     private void activateDirectFieldAccess(DataBinder dataBinder) {
@@ -49,16 +47,17 @@ public class CasCoreServiceExceptionHandler {
 
         ResponseEntity<ErrorResponse> responseEntity = handleExceptionInternalOverride(ex);
         if (responseEntity == null) {
-            List<String> errorMessages = null;
+            String errorMessage = ex.getMessage();
             HttpStatus statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
             if (ex instanceof MethodArgumentNotValidException) {
                 BindingResult result = ((MethodArgumentNotValidException) ex).getBindingResult();
                 List<ObjectError> allErrors = result.getAllErrors();
-                errorMessages = allErrors.stream().map(x -> {
+                List<String> errorMessages = allErrors.stream().map(x -> {
                     if (x instanceof FieldError)
                         return ((FieldError) x).getField() + " " + x.getDefaultMessage();
                     return x.getDefaultMessage();
                 }).collect(Collectors.toList());
+                errorMessage = String.join(";", errorMessages);
 
                 statusCode = HttpStatus.BAD_REQUEST;
 
@@ -67,24 +66,23 @@ public class CasCoreServiceExceptionHandler {
                     || ex instanceof ServletRequestBindingException
                     || ex instanceof BindException
                     || ex instanceof MethodArgumentTypeMismatchException) {
-                errorMessages = new ArrayList<>(Collections.singletonList(ex.getMessage()));
                 statusCode = HttpStatus.BAD_REQUEST;
 
             }  else if (ex instanceof ConstraintViolationException) {
                 Set<ConstraintViolation<?>> violations = ((ConstraintViolationException) ex).getConstraintViolations();
-                errorMessages = violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toList());
-
+                List<String> errorMessages = violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toList());
+                errorMessage = String.join(";", errorMessages);
                 statusCode = HttpStatus.BAD_REQUEST;
-            } else if (ex instanceof ExternalServiceNonCircuitException) {
-                statusCode = HttpStatus.FAILED_DEPENDENCY;
+            } else if (ex instanceof ResourceNotFoundException) {
+                statusCode = HttpStatus.NOT_FOUND;
             } else if (ex instanceof ExternalServiceRuntimeException) {
                 statusCode = HttpStatus.BAD_GATEWAY;
             } else { // any other unhandled exceptions, sanitize the message to prevent error details leak.
-                errorMessages = new ArrayList<>(Collections.singletonList("Internal Server Error. Please contact support team."));
+                errorMessage = "Internal Server Error. Please contact support team.";
             }
 
 
-            ErrorResponse errorResponse = new ErrorResponse(errorMessages);
+            ErrorResponse errorResponse = new ErrorResponse(errorMessage);
             responseEntity = new ResponseEntity<>(errorResponse, new HttpHeaders(), statusCode);
         }
         // Do not log validation exceptions
