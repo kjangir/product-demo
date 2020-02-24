@@ -17,7 +17,7 @@ This is a Rest Api Application to retrieve, update Product Details with pricing 
 ### Service Contract:
 > Service contract is available on Swagger page:
 >[Get Product Details](http://localhost:8080/swagger-ui.html#/product-controller/getProductUsingGET)
->![Design](https://github.com/kjangir/product-demo/blob/master/src/documents/GetProductDetails.png?raw=true)
+>![Design](https://github.com/kjangir/product-demo/blob/master/documents/GetProductDetails.png?raw=true)
 
 ## Update Product Price
 ### Operation Overview
@@ -25,7 +25,7 @@ This is a Rest Api Application to retrieve, update Product Details with pricing 
 ### Service Contract:
 > Service contract is available on Swagger page:
 >[Update Product Price](http://localhost:8080/swagger-ui.html#/product-controller/updateProductUsingPUT)
->![Design](https://github.com/kjangir/product-demo/blob/master/src/documents/UpdateProductEntity.png?raw=true)
+>![Design](https://github.com/kjangir/product-demo/blob/master/documents/UpdateProductEntity.png?raw=true)
 
 
 ## Add Product Price
@@ -34,7 +34,7 @@ This is a Rest Api Application to retrieve, update Product Details with pricing 
 ### Service Contract:
 > Service contract is available on Swagger page:
 >[Add Product Price](http://localhost:8080/swagger-ui.html#/product-controller/createProductUsingPOST)
->![Design](https://github.com/kjangir/product-demo/blob/master/src/documents/CreateProductEntity.png?raw=true)
+>![Design](https://github.com/kjangir/product-demo/blob/master/documents/CreateProductEntity.png?raw=true)
 
 
 ## Delete Product Price
