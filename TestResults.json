@@ -1,0 +1,442 @@
+{
+	"info": {
+		"_postman_id": "48517be5-ea6d-4306-a2b1-837a466cbe98",
+		"name": "Product Details",
+		"description": "This is a Rest Api Application to retrieve, update Product Details with pricing details.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Product Price",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf02bf0-29ae-4515-8712-cc60aa8c5c56",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "client-id",
+						"type": "text",
+						"value": "test-user"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": {{id}},\n  \"currentPrice\": {{price}},\n  \"currencyCode\": \"{{currencyCode}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}products",
+					"host": [
+						"{{baseurl}}products"
+					]
+				},
+				"description": "This Operation allows user to Update the product price of an existing Product."
+			},
+			"response": [
+				{
+					"name": "Update Product Price",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "client-id",
+								"value": "test-user",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"value\": {{price}},\n  \"currency_code\": \"{{currencyCode}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/{{id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"{{id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 22 Feb 2020 18:57:44 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"createdTime\": \"2020-02-22T12:57:44.279\",\n    \"updatedTime\": \"2020-02-22T12:57:44.280\",\n    \"id\": 13860427,\n    \"currentPrice\": 21.11,\n    \"currencyCode\": \"USD\",\n    \"createdBy\": null,\n    \"updatedBy\": \"test-user\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Product Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0afe713f-89ae-4182-b0f2-51da59e2e258",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/{{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"{{id}}"
+					]
+				},
+				"description": "This Operation provides product price and name related to the product Id provided."
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product Price",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0a996c1a-06ef-4cc7-9afe-5502451ee455",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "client-id",
+						"value": "test-user",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"value\": {{price}},\n  \"currency_code\": \"{{currencyCode}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/{{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"{{id}}"
+					]
+				},
+				"description": "This Operation allows user to Update the product price of an existing Product."
+			},
+			"response": [
+				{
+					"name": "Update Product Price",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "client-id",
+								"value": "test-user",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"value\": {{price}},\n  \"currency_code\": \"{{currencyCode}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/{{id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"{{id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 22 Feb 2020 18:57:44 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"createdTime\": \"2020-02-22T12:57:44.279\",\n    \"updatedTime\": \"2020-02-22T12:57:44.280\",\n    \"id\": 13860427,\n    \"currentPrice\": 21.11,\n    \"currencyCode\": \"USD\",\n    \"createdBy\": null,\n    \"updatedBy\": \"test-user\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Product Price",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a337ab45-236c-40e0-8af5-aba47aeaca5b",
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "client-id",
+						"type": "text",
+						"value": "test-user"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}products/{{id}}",
+					"host": [
+						"{{baseurl}}products"
+					],
+					"path": [
+						"{{id}}"
+					]
+				},
+				"description": "This Operation allows user to Update the product price of an existing Product."
+			},
+			"response": [
+				{
+					"name": "Update Product Price",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "client-id",
+								"value": "test-user",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"value\": {{price}},\n  \"currency_code\": \"{{currencyCode}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/{{id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"{{id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 22 Feb 2020 18:57:44 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"createdTime\": \"2020-02-22T12:57:44.279\",\n    \"updatedTime\": \"2020-02-22T12:57:44.280\",\n    \"id\": 13860427,\n    \"currentPrice\": 21.11,\n    \"currencyCode\": \"USD\",\n    \"createdBy\": null,\n    \"updatedBy\": \"test-user\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "139939a0-8cd1-4c09-bb66-1d2c14c325f0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d8cc3c79-b85c-4abf-88a8-8354f8d0f7ef",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "0ea66e70-e3a0-4ea6-8f51-38a8ea236332",
+			"key": "id",
+			"value": "13860427",
+			"type": "string"
+		},
+		{
+			"id": "01fa5d3a-22c7-4560-b39b-eb083295f45e",
+			"key": "price",
+			"value": "21.11",
+			"type": "string"
+		},
+		{
+			"id": "cc475cf4-4b48-4381-9470-9cb78be92d78",
+			"key": "currencyCode",
+			"value": "USD",
+			"type": "string"
+		},
+		{
+			"id": "f47f74d5-db5b-40cb-9a26-831a653d4bc0",
+			"key": "baseurl",
+			"value": "http://localhost:8080/",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

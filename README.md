@@ -53,5 +53,6 @@ This is a Rest Api Application to retrieve, update Product Details with pricing 
 >* Unit test cases are implemented using Junit 5 with Mockito.
 >* Mapping of different object is handled through Lombok.
 >* Exception Handling is being done using Controller Advice.
->* Cassandra operations are handled through Cassandra Repository. 
+>* Cassandra operations are handled through Cassandra Repository.
+>* [Test Results](https://github.com/kjangir/product-demo/blob/master/TestResults.json) 
 
